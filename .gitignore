@@ -33,9 +33,6 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# content (symlink to obsidian-vault-backup/web)
-/content
-
 # vercel
 .vercel
 
