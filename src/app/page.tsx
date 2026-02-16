@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Button } from "antd";
-import { getAllPostsMeta } from "@/lib/content";
+import { getAllContentMeta } from "@/lib/content";
 import PostCard from "@/components/PostCard/PostCard";
 import styles from "./page.module.scss";
 
 export default function HomePage() {
-  const posts = getAllPostsMeta().slice(0, 5);
+  const posts = getAllContentMeta().slice(0, 5);
 
   return (
     <div className={styles.page}>

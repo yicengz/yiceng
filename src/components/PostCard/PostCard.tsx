@@ -7,6 +7,7 @@ const categoryColors: Record<string, string> = {
   数仓随笔: "orange",
   生活记录: "green",
   读书笔记: "blue",
+  去过: "purple",
 };
 
 const sourceColors: Record<string, string> = {
@@ -16,7 +17,7 @@ const sourceColors: Record<string, string> = {
 
 export default function PostCard({ post }: { post: PostMeta }) {
   return (
-    <Link href={`/blog/${post.slug}`} className={styles.card}>
+    <Link href={post.href || `/blog/${post.slug}`} className={styles.card}>
       <div className={styles.meta}>
         {post.pinned && <span className={styles.pinned}>置顶</span>}
         <time className={styles.date}>{post.date}</time>

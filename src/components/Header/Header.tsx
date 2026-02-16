@@ -7,6 +7,7 @@ import styles from "./Header.module.scss";
 const navItems = [
   { label: "首页", href: "/" },
   { label: "文字", href: "/blog" },
+  { label: "去过", href: "/journey" },
   { label: "关于", href: "/about" },
 ];
 

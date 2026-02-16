@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllPostsMeta } from "@/lib/content";
+import { getAllContentMeta } from "@/lib/content";
 import BlogList from "./BlogList";
 import styles from "./page.module.scss";
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const posts = getAllPostsMeta();
+  const posts = getAllContentMeta();
 
   return (
     <div className={styles.page}>

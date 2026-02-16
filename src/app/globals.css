@@ -9,14 +9,14 @@
 
 /* ===== Theme Variables ===== */
 :root {
-  --color-bg: #fefcf8;
-  --color-bg-secondary: #faf6ef;
-  --color-text: #3d3229;
-  --color-text-secondary: #6b5d52;
-  --color-accent: #c8956c;
-  --color-accent-hover: #b07d56;
-  --color-border: #e8ddd0;
-  --color-card-shadow: rgba(61, 50, 41, 0.06);
+  --color-bg: #f5f1ea;
+  --color-bg-secondary: #ece7dd;
+  --color-text: #2c2418;
+  --color-text-secondary: #8a7e72;
+  --color-accent: #8b7355;
+  --color-accent-hover: #6f5b43;
+  --color-border: #ddd6ca;
+  --color-card-shadow: rgba(44, 36, 24, 0.05);
 
   --font-serif: "Source Serif 4", "Noto Serif SC", Georgia, "Times New Roman",
     serif;

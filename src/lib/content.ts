@@ -3,11 +3,31 @@ import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 import type { PostMeta, Post } from "./constants";
+import { getAllJourneysMeta } from "./journey";
 
 const CONTENT_DIR = path.join(process.cwd(), "content/posts");
 
 export type { PostCategory, PostMeta, Post } from "./constants";
 export { POST_CATEGORIES } from "./constants";
+
+/** 文件名 → URL 友好的 slug（空格转连字符，统一小写） */
+function toSlug(filename: string): string {
+  return filename
+    .replace(/\.md$/, "")
+    .replace(/\s+/g, "-")
+    .toLowerCase();
+}
+
+/** 构建 slug → 实际文件名 的映射 */
+function getSlugToFileMap(): Map<string, string> {
+  if (!fs.existsSync(CONTENT_DIR)) return new Map();
+  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".md"));
+  const map = new Map<string, string>();
+  for (const f of files) {
+    map.set(toSlug(f), f);
+  }
+  return map;
+}
 
 /**
  * 获取所有文章的元信息，按日期倒序排列
@@ -20,7 +40,7 @@ export function getAllPostsMeta(): PostMeta[] {
   const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".md"));
 
   const posts = files.map((filename) => {
-    const slug = filename.replace(/\.md$/, "");
+    const slug = toSlug(filename);
     const filePath = path.join(CONTENT_DIR, filename);
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data } = matter(fileContent);
@@ -28,7 +48,7 @@ export function getAllPostsMeta(): PostMeta[] {
 
     return {
       slug,
-      title: data.title || slug,
+      title: data.title || filename.replace(/\.md$/, ""),
       date: data.date ? new Date(data.date).toISOString().split("T")[0] : "",
       summary: data.summary || "",
       category: data.category || "数仓随笔",
@@ -46,19 +66,18 @@ export function getAllPostsMeta(): PostMeta[] {
  * 根据 slug 获取单篇文章（含正文）
  */
 export function getPostBySlug(slug: string): Post | null {
-  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const map = getSlugToFileMap();
+  const filename = map.get(slug);
+  if (!filename) return null;
 
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
+  const filePath = path.join(CONTENT_DIR, filename);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
   const stats = readingTime(fileContent);
 
   return {
     slug,
-    title: data.title || slug,
+    title: data.title || filename.replace(/\.md$/, ""),
     date: data.date ? new Date(data.date).toISOString().split("T")[0] : "",
     summary: data.summary || "",
     category: data.category || "数仓随笔",
@@ -68,6 +87,30 @@ export function getPostBySlug(slug: string): Post | null {
     pinned: !!data.pinned,
     content,
   };
+}
+
+/**
+ * 获取所有内容（文章 + 去过），按日期倒序
+ */
+export function getAllContentMeta(): PostMeta[] {
+  const posts = getAllPostsMeta();
+
+  const journeyPosts: PostMeta[] = getAllJourneysMeta().map((j) => ({
+    slug: j.slug,
+    title: j.title,
+    date: j.startDate,
+    summary: j.summary,
+    category: "去过" as const,
+    source: "",
+    tags: [j.location, j.type === "milestone" ? "里程碑" : "旅行"].filter(Boolean),
+    readingTime: "",
+    pinned: false,
+    href: `/journey/${j.slug}`,
+  }));
+
+  return [...posts, ...journeyPosts].sort((a, b) =>
+    a.date > b.date ? -1 : 1
+  );
 }
 
 /**
@@ -81,5 +124,5 @@ export function getAllPostSlugs(): string[] {
   return fs
     .readdirSync(CONTENT_DIR)
     .filter((f) => f.endsWith(".md"))
-    .map((f) => f.replace(/\.md$/, ""));
+    .map((f) => toSlug(f));
 }
