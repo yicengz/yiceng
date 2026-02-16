@@ -9,9 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "antd": "^6.3.0",
+    "gray-matter": "^4.0.3",
     "next": "16.1.6",
+    "next-mdx-remote": "^6.0.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "reading-time": "^1.5.0",
+    "sass": "^1.97.3"
   },
   "devDependencies": {
     "@types/node": "^20",
