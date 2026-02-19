@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Button } from "antd";
-import { getAllContentMeta } from "@/lib/content";
+import { getAllPostsMeta } from "@/lib/content";
 import PostCard from "@/components/PostCard/PostCard";
 import styles from "./page.module.scss";
 
 export default function HomePage() {
-  const posts = getAllContentMeta().slice(0, 5);
+  const posts = getAllPostsMeta().slice(0, 2);
 
   return (
     <div className={styles.page}>
@@ -13,12 +13,13 @@ export default function HomePage() {
       <section className={styles.hero}>
         <h1 className={styles.greeting}>你好，我是一层</h1>
         <p className={styles.intro}>
-          数据仓库工程师，喜欢用代码梳理混沌，用文字记录生活。
+          数据仓库工程师，将混沌梳理为秩序。
           <br />
-          这里是我的数字花园，欢迎随意逛逛。
+          也用文字记录生活，这里是我的数字花园。
         </p>
+        <p className={styles.motto}>惟以改过为能，不以无过为贵</p>
         <div className={styles.actions}>
-          <Link href="/blog">
+          <Link href="/trace#writing">
             <Button type="primary" size="large">
               阅读文字
             </Button>
@@ -39,7 +40,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className={styles.viewAll}>
-            <Link href="/blog">
+            <Link href="/trace#writing">
               <Button type="link">查看全部文章 &rarr;</Button>
             </Link>
           </div>

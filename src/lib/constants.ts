@@ -1,10 +1,9 @@
-export type PostCategory = "数仓随笔" | "生活记录" | "读书笔记" | "去过";
+export type PostCategory = "数仓随笔" | "生活记录" | "读书笔记";
 
 export const POST_CATEGORIES: PostCategory[] = [
   "数仓随笔",
   "生活记录",
   "读书笔记",
-  "去过",
 ];
 
 export interface PostMeta {

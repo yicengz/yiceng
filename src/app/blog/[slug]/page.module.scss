@@ -90,8 +90,8 @@
   }
 
   pre {
-    background: #28241e;
-    color: #ddd6ca;
+    background: var(--color-code-bg);
+    color: var(--color-code-text);
     padding: 20px 24px;
     border-radius: var(--radius);
     overflow-x: auto;

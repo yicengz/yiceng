@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 import type { PostMeta, Post } from "./constants";
-import { getAllJourneysMeta } from "./journey";
 
 const CONTENT_DIR = path.join(process.cwd(), "content/posts");
 
@@ -87,30 +86,6 @@ export function getPostBySlug(slug: string): Post | null {
     pinned: !!data.pinned,
     content,
   };
-}
-
-/**
- * 获取所有内容（文章 + 去过），按日期倒序
- */
-export function getAllContentMeta(): PostMeta[] {
-  const posts = getAllPostsMeta();
-
-  const journeyPosts: PostMeta[] = getAllJourneysMeta().map((j) => ({
-    slug: j.slug,
-    title: j.title,
-    date: j.startDate,
-    summary: j.summary,
-    category: "去过" as const,
-    source: "",
-    tags: [j.location, j.type === "milestone" ? "里程碑" : "旅行"].filter(Boolean),
-    readingTime: "",
-    pinned: false,
-    href: `/journey/${j.slug}`,
-  }));
-
-  return [...posts, ...journeyPosts].sort((a, b) =>
-    a.date > b.date ? -1 : 1
-  );
 }
 
 /**

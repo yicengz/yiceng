@@ -1,0 +1,347 @@
+.page {
+  display: flex;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 60px 24px 0;
+  gap: 48px;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* ===== 主内容 ===== */
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.section {
+  padding-bottom: 64px;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sectionSubtitle {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  margin-bottom: 36px;
+}
+
+.subTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-top: 32px;
+  color: var(--color-text);
+}
+
+/* ===== 书架 ===== */
+.shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 16px;
+}
+
+.shelfLine {
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 1px;
+}
+
+.book {
+  display: flex;
+  width: 140px;
+  height: 190px;
+  border-radius: 2px 6px 6px 2px;
+  background: var(--color-card-bg);
+  box-shadow: 0 2px 8px var(--color-card-shadow);
+  overflow: hidden;
+  position: relative;
+  cursor: default;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px var(--color-card-shadow);
+  }
+}
+
+.hasNote {
+  cursor: pointer;
+}
+
+.spine {
+  width: 8px;
+  min-height: 100%;
+  flex-shrink: 0;
+}
+
+.face {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bookTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bookMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bookAuthor {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.bookPublisher {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+.bookFormat {
+  font-size: 10px;
+  color: var(--color-accent);
+  margin-top: auto;
+  opacity: 0.6;
+}
+
+.noteHint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  color: var(--color-accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.book:hover .noteHint {
+  opacity: 1;
+}
+
+/* ===== 播客 ===== */
+.podcastList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.podcastCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--color-card-bg);
+  box-shadow: 0 1px 4px var(--color-card-shadow);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px var(--color-card-shadow);
+  }
+}
+
+.podcastInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.podcastName {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.podcastHost {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.podcastDesc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.podcastLinks {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.platformLink {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--color-accent);
+  padding: 3px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-hover);
+  }
+}
+
+/* ===== 单集 / 视频推荐 ===== */
+.episodeList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.episodeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--color-card-bg);
+  box-shadow: 0 1px 4px var(--color-card-shadow);
+}
+
+.episodeTag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.episodeTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+a.episodeTitle {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-border);
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+.episodeComment {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== 频道 ===== */
+.channelList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.channelCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--color-card-bg);
+  box-shadow: 0 1px 4px var(--color-card-shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px var(--color-card-shadow);
+  }
+}
+
+.channelName {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.channelPlatform {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  padding: 1px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.channelDesc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .shelf {
+    gap: 16px;
+  }
+
+  .book {
+    width: 120px;
+    height: 165px;
+  }
+
+  .bookTitle {
+    font-size: 14px;
+  }
+
+  .podcastCard {
+    flex-direction: column;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

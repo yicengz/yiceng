@@ -25,6 +25,14 @@
   margin: 0 auto 32px;
 }
 
+.motto {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  margin-bottom: 32px;
+}
+
 .actions {
   display: flex;
   justify-content: center;
@@ -44,8 +52,8 @@
 }
 
 .postList {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
@@ -77,5 +85,9 @@
 
   .intro {
     font-size: 16px;
+  }
+
+  .postList {
+    grid-template-columns: 1fr;
   }
 }

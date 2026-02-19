@@ -1,0 +1,56 @@
+.page {
+  display: flex;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 60px 24px 0;
+  gap: 48px;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* ===== 主内容 ===== */
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.section {
+  padding-bottom: 64px;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sectionSubtitle {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 60px 0;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

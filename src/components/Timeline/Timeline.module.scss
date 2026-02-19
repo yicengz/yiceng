@@ -72,7 +72,7 @@
 }
 
 .milestone {
-  background-color: #7a6e8a;
+  background-color: var(--color-milestone);
 }
 
 .line {
@@ -112,12 +112,12 @@
 
 .travelTag {
   color: var(--color-accent);
-  background: rgba(139, 115, 85, 0.1);
+  background: var(--color-pinned-bg);
 }
 
 .milestoneTag {
-  color: #7a6e8a;
-  background: rgba(122, 110, 138, 0.1);
+  color: var(--color-milestone);
+  background: var(--color-milestone-bg);
 }
 
 .summary {
