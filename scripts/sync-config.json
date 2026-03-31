@@ -1,0 +1,27 @@
+{
+  "mappings": [
+    {
+      "from": "博客文章",
+      "to": "posts",
+      "category": "数仓随笔"
+    },
+    {
+      "from": "生活记录",
+      "to": "posts",
+      "category": "生活记录"
+    },
+    {
+      "from": "读书笔记",
+      "to": "posts",
+      "category": "读书笔记"
+    },
+    {
+      "from": "旅行/去过",
+      "to": "journeys",
+      "category": "去过"
+    }
+  ],
+  "defaultCategory": "数仓随笔",
+  "requireFrontmatter": false,
+  "autoGenerateFrontmatter": true
+}

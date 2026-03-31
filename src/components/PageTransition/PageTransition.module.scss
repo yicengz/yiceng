@@ -1,0 +1,14 @@
+.pageTransition {
+  min-height: 100%;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.entering {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exiting {
+  opacity: 0;
+  transform: translateY(8px);
+}

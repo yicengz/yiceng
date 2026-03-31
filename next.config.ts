@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // 开发模式下禁用静态导出，以支持动态路由
+  ...(process.env.NODE_ENV === "production" ? { output: "export" } : {}),
   images: {
     unoptimized: true,
   },

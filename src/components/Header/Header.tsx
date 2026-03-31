@@ -110,6 +110,7 @@ export default function Header() {
               height={28}
               className={styles.avatar}
               draggable={false}
+              priority
               onContextMenu={(e) => e.preventDefault()}
             />
             {showPreview && (
@@ -124,6 +125,7 @@ export default function Header() {
                   height={300}
                   className={styles.previewImg}
                   draggable={false}
+                  priority
                 />
               </span>
             )}

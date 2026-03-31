@@ -16,8 +16,8 @@ const sections = [
   { id: "journey", label: "去过" },
 ];
 
-export default function TracePage() {
-  const posts = getAllPostsMeta();
+export default async function TracePage() {
+  const posts = await getAllPostsMeta();
   const journeys = getAllJourneysMeta();
 
   return (

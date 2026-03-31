@@ -4,8 +4,8 @@ import { getAllPostsMeta } from "@/lib/content";
 import PostCard from "@/components/PostCard/PostCard";
 import styles from "./page.module.scss";
 
-export default function HomePage() {
-  const posts = getAllPostsMeta().slice(0, 2);
+export default async function HomePage() {
+  const posts = (await getAllPostsMeta()).slice(0, 2);
 
   return (
     <div className={styles.page}>

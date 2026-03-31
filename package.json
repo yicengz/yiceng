@@ -4,13 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "CONTENT_MODE=local next dev",
+    "dev:remote": "CONTENT_MODE=github next dev",
     "build": "next build",
+    "build:local": "CONTENT_MODE=local next build",
+    "build:remote": "CONTENT_MODE=github next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "publish": "./scripts/publish.sh",
+    "publish:select": "./scripts/publish.sh"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.1.0",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@octokit/rest": "^22.0.1",
     "antd": "^6.3.0",
+    "axios": "^1.13.6",
     "gray-matter": "^4.0.3",
     "next": "16.1.6",
     "next-mdx-remote": "^6.0.0",

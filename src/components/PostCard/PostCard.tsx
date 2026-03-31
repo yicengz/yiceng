@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 import { Tag } from "antd";
 import type { PostMeta } from "@/lib/constants";
@@ -15,7 +16,7 @@ const sourceColors: Record<string, string> = {
   小红书: "#e23442",
 };
 
-export default function PostCard({ post }: { post: PostMeta }) {
+function PostCard({ post }: { post: PostMeta }) {
   return (
     <Link href={post.href || `/blog/${post.slug}`} className={styles.card}>
       <div className={styles.meta}>
@@ -49,3 +50,5 @@ export default function PostCard({ post }: { post: PostMeta }) {
     </Link>
   );
 }
+
+export default memo(PostCard);

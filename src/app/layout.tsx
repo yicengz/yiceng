@@ -4,6 +4,10 @@ import { ThemeProvider } from "@/theme/ThemeContext";
 import AntdProvider from "@/components/AntdProvider";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import BackToTop from "@/components/BackToTop/BackToTop";
+import PageTransition from "@/components/PageTransition/PageTransition";
+import StructuredData from "@/components/StructuredData/StructuredData";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { themes, DEFAULT_THEME } from "@/theme/themes";
 import "./globals.css";
 
@@ -52,14 +56,20 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta name="referrer" content="no-referrer" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <StructuredData />
       </head>
       <body>
         <ThemeProvider>
           <AntdProvider>
             <Header />
-            <main>{children}</main>
+            <Breadcrumb />
+            <main>
+              <PageTransition>{children}</PageTransition>
+            </main>
             <Footer />
+            <BackToTop />
           </AntdProvider>
         </ThemeProvider>
       </body>

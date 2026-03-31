@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   description: "一层的文字 — 数仓随笔、生活记录、读书笔记",
 };
 
-export default function BlogPage() {
-  const posts = getAllPostsMeta();
+export default async function BlogPage() {
+  const posts = await getAllPostsMeta();
 
   return (
     <div className={styles.page}>
