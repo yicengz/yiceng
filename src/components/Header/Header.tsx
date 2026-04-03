@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
     href: "/trace",
     children: [
       { label: "文字", href: "/trace#writing" },
-      { label: "去过", href: "/trace#journey" },
+      { label: "行迹", href: "/trace#journey" },
     ],
   },
   {
@@ -38,13 +38,13 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: "关于",
+    label: "缘起",
     href: "/about",
     children: [
       { label: "履历", href: "/about#career" },
-      { label: "技能栈", href: "/about#skills" },
+      { label: "所学", href: "/about#skills" },
       { label: "联系方式", href: "/about#contact" },
-      { label: "更新日志", href: "/about#changelog" },
+      { label: "记事", href: "/about#changelog" },
     ],
   },
 ];
