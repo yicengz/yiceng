@@ -5,17 +5,17 @@ import SectionSidebar from "@/components/SectionSidebar/SectionSidebar";
 import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
-  title: "关于",
-  description: "关于一层 - 数据仓库工程师",
+  title: "缘起",
+  description: "缘起 - 一层",
 };
 
 const skills = ["Hive", "Spark", "数仓建模"];
 
 const sections = [
   { id: "career", label: "履历" },
-  { id: "skills", label: "技能栈" },
+  { id: "skills", label: "所学" },
   { id: "contact", label: "联系方式" },
-  { id: "changelog", label: "更新日志" },
+  { id: "changelog", label: "记事" },
 ];
 
 /*
@@ -41,7 +41,7 @@ export default function AboutPage() {
       <SectionSidebar sections={sections} />
 
       <div className={styles.main}>
-        <h1 className={styles.title}>关于我</h1>
+        <h1 className={styles.title}>缘起</h1>
 
         <section id="career" className={styles.section}>
           <h2 className={styles.sectionTitle}>履历</h2>
@@ -49,7 +49,7 @@ export default function AboutPage() {
         </section>
 
         <section id="skills" className={styles.section}>
-          <h2 className={styles.sectionTitle}>技能栈</h2>
+          <h2 className={styles.sectionTitle}>所学</h2>
           <div className={styles.skills}>
             {skills.map((skill) => (
               <Tag key={skill} className={styles.skillTag}>
@@ -72,7 +72,7 @@ export default function AboutPage() {
         </section>
 
         <section id="changelog" className={styles.section}>
-          <h2 className={styles.sectionTitle}>更新日志</h2>
+          <h2 className={styles.sectionTitle}>记事</h2>
           {/* TODO: 后续补充更新日志内容 */}
           <p className={styles.empty}>暂无内容，敬请期待。</p>
         </section>

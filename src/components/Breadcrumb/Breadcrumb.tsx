@@ -15,9 +15,9 @@ const routeMap: Record<string, string> = {
   "": "首页",
   trace: "留痕",
   blog: "文字",
-  journey: "去过",
+  journey: "行迹",
   intake: "汲取",
-  about: "关于",
+  about: "缘起",
 };
 
 export default function Breadcrumb() {
