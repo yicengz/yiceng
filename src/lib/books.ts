@@ -68,26 +68,4 @@ export const books: Book[] = [
     publisher: "上海译文出版社",
     color: "#5A7A7A",
   },
-  {
-    title: "置身事内",
-    author: "兰小欢",
-    comment: "从政府与经济的关系出发，理解中国经济的运行方式",
-    publisher: "上海人民出版社",
-    noteSlug: "reading-erta",
-    color: "#8B6F5A",
-  },
-  {
-    title: "金字塔原理",
-    author: "芭芭拉·明托",
-    comment: "思考和表达的底层结构",
-    publisher: "南海出版公司",
-    color: "#5A6E8B",
-  },
-  {
-    title: "禅与摩托车维修艺术",
-    author: "罗伯特·M·波西格",
-    comment: "良质是什么？在理性与感性之间寻找答案",
-    publisher: "重庆出版社",
-    color: "#6B7F5A",
-  },
 ];

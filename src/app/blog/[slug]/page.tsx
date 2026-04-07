@@ -55,7 +55,16 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </header>
       <div className={styles.content}>
-        <MDXRemote source={post.content} />
+        <MDXRemote
+          source={post.content}
+          components={{
+            a: ({ href, children, ...props }) => (
+              <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+                {children}
+              </a>
+            ),
+          }}
+        />
       </div>
     </article>
   );

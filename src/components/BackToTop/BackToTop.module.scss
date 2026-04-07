@@ -1,20 +1,15 @@
-.backToTop {
+.wrapper {
   position: fixed;
   right: 24px;
   bottom: 24px;
-  width: 44px;
-  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   z-index: 999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
 }
 
 .visible {
@@ -23,11 +18,61 @@
   transform: translateY(0);
 }
 
-/* 移动端适配 */
+/* ===== 圆形按钮 ===== */
+.btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ===== 箭头组 ===== */
+.arrowTrail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 2px;
+  color: var(--color-text);
+}
+
+/* 每个箭头有 staggered 光流动画：底部先亮，逐步向上传播 */
+.chevron {
+  display: block;
+  animation: chevronPulse 2s ease-in-out infinite;
+}
+
+@keyframes chevronPulse {
+  0%, 100% { opacity: var(--base-opacity); }
+  40%, 60% { opacity: var(--peak-opacity); }
+}
+
+/* ===== Mobile ===== */
 @media (max-width: 640px) {
-  .backToTop {
+  .wrapper {
     right: 16px;
     bottom: 16px;
+  }
+
+  .btn {
     width: 40px;
     height: 40px;
   }
