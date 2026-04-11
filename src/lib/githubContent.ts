@@ -27,16 +27,10 @@ export interface ContentSource {
 // 默认内容源配置
 export const DEFAULT_CONTENT_SOURCES: ContentSource[] = [
   {
-    path: "content",
+    path: "output",
     category: "数仓随笔",
     sortBy: "date",
     limit: 50,
-    filter: { publish: true },
-  },
-  {
-    path: "yiceng",
-    category: "生活记录",
-    sortBy: "date",
     filter: { publish: true },
   },
 ];
