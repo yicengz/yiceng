@@ -24,7 +24,7 @@ export interface ContentSource {
   limit?: number;
 }
 
-// 默认内容源配置
+// 默认内容源配置（本地与远程模式共用）
 export const DEFAULT_CONTENT_SOURCES: ContentSource[] = [
   {
     path: "output",
@@ -148,7 +148,7 @@ function resolveObsidianImages(content: string): string {
 // 筛选条件
 // ============================================================
 
-function matchesFilter(
+export function matchesFilter(
   frontmatter: Record<string, any>,
   filter?: ContentSource["filter"]
 ): boolean {
@@ -184,7 +184,7 @@ function matchesFilter(
 // 文件名 → slug
 // ============================================================
 
-function toSlug(filename: string): string {
+export function toSlug(filename: string): string {
   return filename
     .replace(/\.md$/, "")
     .replace(/[，,]/g, "-")
@@ -234,8 +234,8 @@ async function getPostsFromSource(
     (posts as any).push({
       slug,
       title: frontmatter.title || file.name.replace(/\.md$/, ""),
-      date: (frontmatter.date ?? frontmatter.published)
-        ? new Date(frontmatter.date ?? frontmatter.published).toISOString().split("T")[0]
+      date: (frontmatter.publish_date ?? frontmatter.date ?? frontmatter.published)
+        ? new Date(frontmatter.publish_date ?? frontmatter.date ?? frontmatter.published).toISOString().split("T")[0]
         : "",
       summary: frontmatter.summary || "",
       category: frontmatter.category || source.category,
@@ -243,6 +243,7 @@ async function getPostsFromSource(
       tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
       readingTime: stats.text,
       pinned: !!frontmatter.pinned,
+      link: typeof frontmatter.link === "string" ? frontmatter.link : "",
       _sourcePath: file.path,
     });
   }
@@ -343,6 +344,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     tags: postMeta.tags,
     readingTime: stats.text,
     pinned: postMeta.pinned,
+    link: (postMeta as any).link,
     content: body,
   };
 }

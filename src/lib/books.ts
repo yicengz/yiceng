@@ -1,3 +1,7 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
 export type ReadingFormat = "纸质" | "电子" | "混合";
 
 export interface Book {
@@ -12,60 +16,67 @@ export interface Book {
   noteSlug?: string;
   /** 封面主色调，用于生成书脊颜色 */
   color?: string;
+  /** 看完时间，用于排序 */
+  miletone_date?: string;
+  /** 封面图，相对 /books/ 的文件名（如 lafayette.jpg） */
+  cover?: string;
+  /** 豆瓣条目 URL，点击封面跳转 */
+  douban?: string;
 }
 
-/**
- * 书架数据，手动维护。
- * 顺序即展示顺序——最近读的放前面。
- */
-export const books: Book[] = [
-  {
-    title: "拉法耶特",
-    author: "冯翔",
-    comment: "两个世界的英雄，革命年代里理想主义者的一生",
-    publisher: "读库",
-    color: "#7A5C47",
-  },
-  {
-    title: "投资第一课",
-    author: "孟岩",
-    comment: "投资的本质是认知变现",
-    publisher: "读库",
-    color: "#4A7A6B",
-  },
-  {
-    title: "小岛经济学",
-    author: "彼得·希夫 / 安德鲁·希夫",
-    comment: "用一座小岛讲透经济学的底层逻辑",
-    publisher: "中信出版社",
-    color: "#5B8CAF",
-  },
-  {
-    title: "人生解忧：佛学入门四十讲",
-    author: "成庆",
-    comment: "不是鸡汤，是认真地面对苦与无常",
-    publisher: "理想国",
-    color: "#8A7560",
-  },
-  {
-    title: "刘擎西方现代思想讲义",
-    author: "刘擎",
-    comment: "19 位思想家，19 种理解世界的方式",
-    publisher: "新星出版社",
-    color: "#6A5A8B",
-  },
-  {
-    title: "奔袭",
-    author: "冯翔",
-    comment: "恩德培行动，一场不可能完成的营救",
-    publisher: "读库",
-    color: "#8B5A5A",
-  },
-  {
-    title: "世上为什么要有图书馆",
-    author: "杨素秋",
-    comment: "从零建起一座图书馆，也是重建一种公共生活",
-    publisher: "上海译文出版社",
-    color: "#5A7A7A",
-  },
-];
+const BOOK_DIR =
+  "/Users/yiceng/Library/Mobile Documents/iCloud~md~obsidian/Documents/yiceng/output/book";
+
+function toDateString(value: unknown): string {
+  if (!value) return "";
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value).slice(0, 10);
+}
+
+function readBooks(): Book[] {
+  if (!fs.existsSync(BOOK_DIR)) return [];
+
+  const entries = fs
+    .readdirSync(BOOK_DIR, { withFileTypes: true })
+    .filter((e) => e.isFile() && e.name.endsWith(".md"));
+
+  const books: Book[] = [];
+  for (const entry of entries) {
+    const full = path.join(BOOK_DIR, entry.name);
+    let raw: string;
+    try {
+      raw = fs.readFileSync(full, "utf-8");
+    } catch (err) {
+      console.warn(`[books] 跳过读不到的文件: ${entry.name}`, err);
+      continue;
+    }
+
+    const { data } = matter(raw);
+    if (data.is_yiceng_public !== true) continue;
+
+    const title = entry.name.replace(/\.md$/, "").replace(/^《(.*)》$/, "$1");
+    books.push({
+      title,
+      author: typeof data.author === "string" ? data.author : "",
+      comment: typeof data.comment === "string" ? data.comment : "",
+      publisher: typeof data.publisher === "string" ? data.publisher : undefined,
+      format: data.format as ReadingFormat | undefined,
+      noteSlug: typeof data.noteSlug === "string" ? data.noteSlug : undefined,
+      color: typeof data.color === "string" ? data.color : undefined,
+      miletone_date: toDateString(data.miletone_date),
+      cover: typeof data.cover === "string" ? data.cover : undefined,
+      douban: typeof data.douban === "string" ? data.douban : undefined,
+    });
+  }
+
+  books.sort((a, b) => {
+    const da = a.miletone_date || "";
+    const db = b.miletone_date || "";
+    if (db !== da) return db > da ? 1 : -1;
+    return a.title.localeCompare(b.title, "zh-Hans-CN");
+  });
+
+  return books;
+}
+
+export const books: Book[] = readBooks();

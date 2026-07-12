@@ -11,12 +11,14 @@ export interface PostMeta {
   title: string;
   date: string;
   summary: string;
-  category: PostCategory;
+  /** 第一项约定为主分类（数仓随笔/生活记录/读书笔记），其余为自由二级标签 */
+  category: string[];
   source: string;
   tags: string[];
   readingTime: string;
   pinned: boolean;
   href?: string;
+  link?: string;
 }
 
 export interface Post extends PostMeta {
@@ -40,3 +42,36 @@ export interface JourneyMeta {
 export interface Journey extends JourneyMeta {
   content: string;
 }
+
+// Routine (起居) types
+export type RoutineType =
+  | "movie"
+  | "tv"
+  | "book"
+  | "podcast"
+  | "place"
+  | "writing"
+  | "other";
+
+export interface RoutineMeta {
+  slug: string;
+  title: string;
+  date: string;
+  type: RoutineType;
+  summary: string;
+  link: string;
+}
+
+export interface Routine extends RoutineMeta {
+  content: string;
+}
+
+export const ROUTINE_TYPE_LABEL: Record<RoutineType, string> = {
+  movie: "电影",
+  tv: "剧集",
+  book: "书",
+  podcast: "播客",
+  place: "去过",
+  writing: "写作",
+  other: "其他",
+};

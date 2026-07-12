@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Noto_Sans_SC } from "next/font/google";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ThemeProvider } from "@/theme/ThemeContext";
 import AntdProvider from "@/components/AntdProvider";
 import Header from "@/components/Header/Header";
@@ -61,17 +62,19 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body>
-        <ThemeProvider>
-          <AntdProvider>
-            <Header />
-            <Breadcrumb />
-            <main>
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <Footer />
-            <BackToTop />
-          </AntdProvider>
-        </ThemeProvider>
+        <AntdRegistry>
+          <ThemeProvider>
+            <AntdProvider>
+              <Header />
+              <Breadcrumb />
+              <main>
+                <PageTransition>{children}</PageTransition>
+              </main>
+              <Footer />
+              <BackToTop />
+            </AntdProvider>
+          </ThemeProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

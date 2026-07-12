@@ -1,7 +1,11 @@
+import fs from "fs";
+import path from "path";
 import type { Metadata } from "next";
 import { Tag } from "antd";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import CareerTimeline from "./CareerTimeline";
 import SectionSidebar from "@/components/SectionSidebar/SectionSidebar";
+import NameNotes from "@/components/NameNotes/NameNotes";
 import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
@@ -15,7 +19,13 @@ const sections = [
   { id: "career", label: "履历" },
   { id: "skills", label: "所学" },
   { id: "contact", label: "联系方式" },
-  { id: "changelog", label: "记事" },
+  { id: "changelog", label: "打磨" },
+];
+
+const POLISH_NAME_ALTERNATIVES = [
+  { name: "记事", note: "太寻常" },
+  { name: "修葺", note: "把网站当园子的隐喻很美，但意象偏窄" },
+  { name: "精进", note: "佛家用语，跟『缘起』体系感强，但太庄重" },
 ];
 
 /*
@@ -35,7 +45,18 @@ const sections = [
  * </section>
  */
 
+function readChangelog(): string {
+  const file = path.join(process.cwd(), "changelog.md");
+  try {
+    return fs.readFileSync(file, "utf-8");
+  } catch {
+    return "";
+  }
+}
+
 export default function AboutPage() {
+  const changelog = readChangelog();
+
   return (
     <div className={styles.page}>
       <SectionSidebar sections={sections} />
@@ -72,9 +93,24 @@ export default function AboutPage() {
         </section>
 
         <section id="changelog" className={styles.section}>
-          <h2 className={styles.sectionTitle}>记事</h2>
-          {/* TODO: 后续补充更新日志内容 */}
-          <p className={styles.empty}>暂无内容，敬请期待。</p>
+          <h2 className={styles.sectionTitle}>
+            打磨
+            <NameNotes alternatives={POLISH_NAME_ALTERNATIVES} />
+          </h2>
+          {changelog ? (
+            <div className={styles.changelog}>
+              <MDXRemote
+                source={changelog}
+                components={{
+                  h1: ({ children }) => (
+                    <h3 className={styles.changelogDate}>{children}</h3>
+                  ),
+                }}
+              />
+            </div>
+          ) : (
+            <p className={styles.empty}>暂无内容，敬请期待。</p>
+          )}
         </section>
       </div>
     </div>

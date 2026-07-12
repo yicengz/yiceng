@@ -36,6 +36,8 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const visibleTags = post.tags.filter((t) => !t.startsWith("content/"));
+
   return (
     <article className={styles.article}>
       <header className={styles.header}>
@@ -43,11 +45,21 @@ export default async function BlogPostPage({ params }: Props) {
         <div className={styles.meta}>
           <time className={styles.date}>{post.date}</time>
           <span className={styles.readingTime}>{post.readingTime}</span>
+          {post.link && (
+            <a
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.linkButton}
+            >
+              原文 ↗
+            </a>
+          )}
         </div>
         <div className={styles.tags}>
           <Tag color="orange">{post.category}</Tag>
           {post.source && <Tag style={{ borderStyle: "dashed" }}>{post.source}</Tag>}
-          {post.tags.map((tag) => (
+          {visibleTags.map((tag) => (
             <Tag key={tag} color="default">
               {tag}
             </Tag>

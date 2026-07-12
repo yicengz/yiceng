@@ -1,3 +1,5 @@
+"use client";
+
 import { memo } from "react";
 import Link from "next/link";
 import { Tag } from "antd";
@@ -17,15 +19,22 @@ const sourceColors: Record<string, string> = {
 };
 
 function PostCard({ post }: { post: PostMeta }) {
+  const visibleTags = post.tags.filter((t) => !t.startsWith("content/"));
+  const href = post.href || `/blog/${post.slug}`;
+
   return (
-    <Link href={post.href || `/blog/${post.slug}`} className={styles.card}>
+    <article className={styles.card}>
       <div className={styles.meta}>
         {post.pinned && <span className={styles.pinned}>置顶</span>}
         <time className={styles.date}>{post.date}</time>
         <span className={styles.readingTime}>{post.readingTime}</span>
       </div>
       <div className={styles.titleRow}>
-        <h3 className={styles.title}>{post.title}</h3>
+        <h3 className={styles.title}>
+          <Link href={href} className={styles.titleLink}>
+            {post.title}
+          </Link>
+        </h3>
         {post.source && (
           <Tag
             className={styles.sourceTag}
@@ -40,14 +49,24 @@ function PostCard({ post }: { post: PostMeta }) {
         <Tag color={categoryColors[post.category] || "default"}>
           {post.category}
         </Tag>
-        {post.tags.length > 0 && <span className={styles.tagDivider} />}
-        {post.tags.map((tag) => (
+        {visibleTags.length > 0 && <span className={styles.tagDivider} />}
+        {visibleTags.map((tag) => (
           <Tag key={tag} color="default" className={styles.tag}>
             {tag}
           </Tag>
         ))}
+        {post.link && (
+          <a
+            href={post.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.linkButton}
+          >
+            原文 ↗
+          </a>
+        )}
       </div>
-    </Link>
+    </article>
   );
 }
 

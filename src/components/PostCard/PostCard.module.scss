@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: block;
   padding: 28px 32px;
   background: var(--color-card-bg);
@@ -13,7 +14,18 @@
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px var(--color-card-shadow);
-    color: var(--color-text);
+  }
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
   }
 }
 
@@ -88,4 +100,23 @@
   font-family: var(--font-sans);
   font-size: 12px;
   border-style: dashed;
+}
+
+.linkButton {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--color-accent);
+  padding: 3px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  white-space: nowrap;
+  margin-left: auto;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-hover);
+  }
 }

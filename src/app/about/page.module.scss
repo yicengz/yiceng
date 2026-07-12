@@ -75,6 +75,42 @@
   font-size: 15px;
 }
 
+.changelog {
+  font-family: var(--font-sans);
+
+  .changelogDate {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.5px;
+    margin: 28px 0 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    padding-left: 20px;
+    margin: 0 0 12px;
+  }
+
+  li {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--color-text);
+    padding: 2px 0;
+  }
+
+  code {
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+    font-size: 13px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--color-bg-subtle, rgba(127, 127, 127, 0.08));
+  }
+}
+
 @media (max-width: 768px) {
   .page {
     flex-direction: column;

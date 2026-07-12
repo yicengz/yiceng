@@ -20,6 +20,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "首页", href: "/" },
+  { label: "起居", href: "/routine" },
   {
     label: "留痕",
     href: "/trace",
@@ -53,6 +54,7 @@ const navItems: NavItem[] = [
 const TRACE_ROUTES = ["/trace", "/blog", "/journey"];
 const INTAKE_ROUTES = ["/intake"];
 const ABOUT_ROUTES = ["/about"];
+const ROUTINE_ROUTES = ["/routine"];
 
 function isActive(pathname: string, item: NavItem): boolean {
   if (item.href === "/trace") {
@@ -63,6 +65,9 @@ function isActive(pathname: string, item: NavItem): boolean {
   }
   if (item.href === "/about") {
     return ABOUT_ROUTES.some((r) => pathname.startsWith(r));
+  }
+  if (item.href === "/routine") {
+    return ROUTINE_ROUTES.some((r) => pathname.startsWith(r));
   }
   if (item.href) {
     return item.href === "/"

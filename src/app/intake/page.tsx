@@ -30,51 +30,78 @@ export default function IntakePage() {
 
           <div className={styles.shelf}>
             {books.map((book) => {
-              const inner = (
-                <>
-                  <span
-                    className={styles.spine}
-                    style={{ backgroundColor: book.color || "#8E867E" }}
+              const cover = book.cover ? (
+                <span className={styles.cover}>
+                  <img
+                    src={`/books/${book.cover}`}
+                    alt={book.title}
+                    loading="lazy"
                   />
-                  <span className={styles.face}>
-                    <span className={styles.bookTitle}>{book.title}</span>
-                    <span className={styles.bookMeta}>
-                      <span className={styles.bookAuthor}>{book.author}</span>
-                      {book.publisher && (
-                        <span className={styles.bookPublisher}>
-                          {book.publisher}
-                        </span>
-                      )}
-                    </span>
-                    {book.format && (
-                      <span className={styles.bookFormat}>{book.format}</span>
-                    )}
-                  </span>
-                </>
+                </span>
+              ) : (
+                <span
+                  className={styles.coverFallback}
+                  style={{ backgroundColor: book.color || "#8E867E" }}
+                >
+                  <span className={styles.fallbackTitle}>{book.title}</span>
+                </span>
               );
 
-              return book.noteSlug ? (
-                <Link
-                  key={book.title}
-                  href={`/blog/${book.noteSlug}`}
-                  className={`${styles.book} ${styles.hasNote}`}
-                  title={book.comment}
-                >
-                  {inner}
-                  <span className={styles.noteHint}>读书笔记</span>
-                </Link>
-              ) : (
+              const caption = (
+                <span className={styles.caption}>
+                  <span className={styles.bookTitle}>{book.title}</span>
+                  <span className={styles.bookAuthor}>{book.author}</span>
+                  {book.publisher && (
+                    <span className={styles.bookPublisher}>
+                      {book.publisher}
+                    </span>
+                  )}
+                </span>
+              );
+
+              if (book.noteSlug) {
+                return (
+                  <Link
+                    key={book.title}
+                    href={`/blog/${book.noteSlug}`}
+                    className={`${styles.book} ${styles.hasNote}`}
+                    title={book.comment}
+                  >
+                    {cover}
+                    {caption}
+                    <span className={styles.noteHint}>读书笔记</span>
+                  </Link>
+                );
+              }
+
+              if (book.douban) {
+                return (
+                  <a
+                    key={book.title}
+                    href={book.douban}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${styles.book} ${styles.hasNote}`}
+                    title={book.comment}
+                  >
+                    {cover}
+                    {caption}
+                  </a>
+                );
+              }
+
+              return (
                 <div
                   key={book.title}
                   className={styles.book}
                   title={book.comment}
                 >
-                  {inner}
+                  {cover}
+                  {caption}
                 </div>
               );
             })}
           </div>
-          <div className={styles.shelfLine} />
         </section>
 
         {/* ===== 播客 ===== */}

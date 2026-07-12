@@ -1,0 +1,56 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  font-size: 15px;
+  cursor: help;
+  transition: opacity var(--transition), color var(--transition);
+  vertical-align: middle;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}
+
+.tooltipInner {
+  padding: 4px 2px;
+  min-width: 200px;
+}
+
+.tooltipTitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  li {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+.altName {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.altNote {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.overlay {
+  max-width: 320px;
+}
