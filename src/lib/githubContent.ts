@@ -77,7 +77,7 @@ const CACHE_TTL = process.env.NODE_ENV === "development"
 // 用 Git Trees API 一次拿到所有文件路径（替代递归目录遍历）
 // ============================================================
 
-async function fetchRepoTree(): Promise<Array<{ path: string; type: string }>> {
+export async function fetchRepoTree(): Promise<Array<{ path: string; type: string }>> {
   const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/git/trees/${GITHUB_CONFIG.branch}?recursive=1`;
   const res = await fetch(url, { headers: getHeaders() });
   if (!res.ok) throw new Error(`Git Trees API: HTTP ${res.status} ${res.statusText}`);
@@ -106,7 +106,7 @@ function filterMarkdownFiles(
 // 获取文件原始内容（优先走内存缓存）
 // ============================================================
 
-async function fetchRawContent(filePath: string, retries = 3): Promise<string | null> {
+export async function fetchRawContent(filePath: string, retries = 3): Promise<string | null> {
   if (globalThis.__rawContentCache.has(filePath)) {
     return globalThis.__rawContentCache.get(filePath)!;
   }

@@ -39,6 +39,175 @@
   gap: 16px;
 }
 
+.recentRoutines {
+  padding: 40px 0 20px;
+  animation: fadeIn 0.6s ease 0.15s forwards;
+  opacity: 0;
+}
+
+.routineTimeline {
+  position: relative;
+  height: 260px;
+  margin: 20px 0 24px;
+}
+
+.axis {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform: translateY(-0.5px);
+}
+
+.nodes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 100%;
+}
+
+.node {
+  position: relative;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--color-bg);
+}
+
+.connector {
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+  transform: translateX(-0.5px);
+  z-index: 1;
+}
+
+.nodeBelow .connector {
+  top: 50%;
+}
+
+.nodeAbove .connector {
+  bottom: 50%;
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 16px);
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+
+  &:hover {
+    background: var(--color-bg-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    .cardTitle {
+      color: var(--color-accent);
+    }
+  }
+}
+
+// hover 时保留居中定位，微微离开轴
+.nodeBelow .card {
+  top: calc(50% + 40px);
+
+  &:hover {
+    transform: translate(-50%, 2px);
+  }
+}
+
+.nodeAbove .card {
+  bottom: calc(50% + 40px);
+
+  &:hover {
+    transform: translate(-50%, -2px);
+  }
+}
+
+.cardInert {
+  cursor: default;
+
+  .cardTitle {
+    color: var(--color-text-secondary);
+  }
+
+  &:hover {
+    background: var(--color-bg-secondary);
+    box-shadow: none;
+    transform: translateX(-50%);
+
+    .cardTitle {
+      color: var(--color-text-secondary);
+    }
+  }
+}
+
+.cardDate {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color var(--transition);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardTag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.dot-movie    { background-color: #4a7bd6; }
+.dot-tv       { background-color: #6c5ce7; }
+.dot-book     { background-color: #a67c52; }
+.dot-podcast  { background-color: #b34fb3; }
+.dot-place    { background-color: #4a9d7f; }
+.dot-writing  { background-color: #7a7a7a; }
+.dot-other    { background-color: #999; }
+
+.tag-movie   { color: #4a7bd6; background: rgba(74, 123, 214, 0.12); }
+.tag-tv      { color: #6c5ce7; background: rgba(108, 92, 231, 0.12); }
+.tag-book    { color: #a67c52; background: rgba(166, 124, 82, 0.14); }
+.tag-podcast { color: #b34fb3; background: rgba(179, 79, 179, 0.12); }
+.tag-place   { color: #4a9d7f; background: rgba(74, 157, 127, 0.14); }
+.tag-writing { color: #7a7a7a; background: rgba(122, 122, 122, 0.14); }
+.tag-other   { color: #999;    background: rgba(153, 153, 153, 0.14); }
+
 .recentPosts {
   padding: 40px 0;
   animation: fadeIn 0.6s ease 0.2s forwards;
@@ -70,6 +239,64 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Tablet & Mobile: 横向锯齿轴不适合窄屏，改成竖排列表 */
+@media (max-width: 900px) {
+  .routineTimeline {
+    height: auto;
+    margin: 12px 0 24px;
+  }
+
+  .axis {
+    top: 0;
+    bottom: 0;
+    left: 6px;
+    right: auto;
+    width: 1px;
+    height: auto;
+    transform: none;
+  }
+
+  .nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 12px 0;
+  }
+
+  .node {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .dot {
+    position: static;
+    transform: none;
+    box-shadow: 0 0 0 4px var(--color-bg);
+  }
+
+  .connector {
+    display: none;
+  }
+
+  .card,
+  .nodeBelow .card,
+  .nodeAbove .card {
+    position: static;
+    transform: none;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    max-width: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 }
 

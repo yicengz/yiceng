@@ -9,6 +9,11 @@ import {
   toSlug,
   type ContentSource,
 } from "./githubContent";
+import {
+  LOCAL_VAULT_ROOT,
+  readMarkdownFilesUnder,
+  resolveObsidianImagesLocal,
+} from "./obsidianLocal";
 
 // ============================================================
 // 内容源切换配置
@@ -20,78 +25,6 @@ import {
  * - github: 从 GitHub 仓库动态获取
  */
 const CONTENT_MODE = (process.env.CONTENT_MODE || "local") as "local" | "github";
-
-// ============================================================
-// 本地模式：从 iCloud Obsidian 仓库读取
-// ============================================================
-
-const LOCAL_VAULT_ROOT =
-  "/Users/yiceng/Library/Mobile Documents/iCloud~md~obsidian/Documents/yiceng";
-
-// 附件 filename → 仓库相对路径，用于解析 ![[image.jpg]]
-let localAttachmentMap: Map<string, string> | null = null;
-
-function buildLocalAttachmentMap(): Map<string, string> {
-  const map = new Map<string, string>();
-  const root = path.join(LOCAL_VAULT_ROOT, "attachments");
-  if (!fs.existsSync(root)) return map;
-
-  const walk = (dir: string) => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(full);
-      } else if (entry.isFile()) {
-        map.set(entry.name, path.relative(LOCAL_VAULT_ROOT, full));
-      }
-    }
-  };
-  walk(root);
-  return map;
-}
-
-function getLocalAttachmentMap(): Map<string, string> {
-  // 开发模式每次重建，反映最新内容
-  if (!localAttachmentMap || process.env.NODE_ENV === "development") {
-    localAttachmentMap = buildLocalAttachmentMap();
-  }
-  return localAttachmentMap;
-}
-
-function resolveObsidianImagesLocal(content: string): string {
-  const map = getLocalAttachmentMap();
-  return content.replace(
-    /!\[\[([^\]]+\.(jpg|jpeg|png|gif|webp|svg|avif|heic))\]\]/gi,
-    (_, filename) => {
-      const rel = map.get(filename) ?? `attachments/unsplash/${filename}`;
-      return `![${filename}](/api/local-image?path=${encodeURIComponent(rel)})`;
-    }
-  );
-}
-
-function readMarkdownFilesUnder(
-  basePath: string
-): Array<{ path: string; name: string }> {
-  const root = path.join(LOCAL_VAULT_ROOT, basePath);
-  if (!fs.existsSync(root)) return [];
-
-  const out: Array<{ path: string; name: string }> = [];
-  const walk = (dir: string) => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(full);
-      } else if (entry.isFile() && entry.name.endsWith(".md")) {
-        out.push({
-          path: path.relative(LOCAL_VAULT_ROOT, full),
-          name: entry.name,
-        });
-      }
-    }
-  };
-  walk(root);
-  return out;
-}
 
 interface LocalPostMeta extends PostMeta {
   _sourcePath?: string;

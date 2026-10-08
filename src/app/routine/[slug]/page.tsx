@@ -11,12 +11,15 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getAllRoutineSlugs().map((slug) => ({ slug }));
+  // 开发模式下跳过静态参数生成，避免每次请求都调用 GitHub API
+  if (process.env.NODE_ENV === "development") return [];
+  const slugs = await getAllRoutineSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const routine = getRoutineBySlug(slug);
+  const routine = await getRoutineBySlug(slug);
   if (!routine) return {};
   return {
     title: `${routine.title} - 起居`,
@@ -36,7 +39,7 @@ const TYPE_COLOR: Record<string, string> = {
 
 export default async function RoutineDetailPage({ params }: Props) {
   const { slug } = await params;
-  const routine = getRoutineBySlug(slug);
+  const routine = await getRoutineBySlug(slug);
 
   if (!routine) {
     notFound();

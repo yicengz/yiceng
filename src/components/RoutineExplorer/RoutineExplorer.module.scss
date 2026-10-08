@@ -1,0 +1,352 @@
+.explorer {
+  display: grid;
+  grid-template-columns: minmax(360px, 440px) 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.left {
+  min-width: 0;
+}
+
+.hero {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 78px 20px 1fr;
+  gap: 14px;
+  padding: 14px 12px;
+  margin-left: -12px;
+  margin-right: -12px;
+  color: var(--color-text);
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeInItem 0.5s ease forwards;
+  border-radius: var(--radius);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+
+  &:hover {
+    background-color: var(--color-bg-secondary);
+
+    .itemTitle {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.itemActive {
+  background-color: var(--color-bg-secondary);
+
+  .itemTitle {
+    color: var(--color-accent);
+  }
+}
+
+.itemInert {
+  cursor: default;
+
+  .itemTitle {
+    color: var(--color-text-secondary);
+  }
+
+  &:hover {
+    .itemTitle {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  &.itemActive .itemTitle {
+    color: var(--color-text-secondary);
+  }
+}
+
+.time {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 3px;
+}
+
+.date {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.axis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+  z-index: 1;
+}
+
+.line {
+  width: 1px;
+  flex: 1;
+  background-color: var(--color-border);
+  margin-top: 8px;
+}
+
+.content {
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color var(--transition);
+}
+
+.typeTag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.summary {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+// ============================================================
+// 预览面板
+// ============================================================
+
+.preview {
+  position: sticky;
+  top: 90px;
+  min-width: 0;
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
+  padding-right: 4px;
+  animation: fadeInPreview 0.5s ease forwards;
+}
+
+.previewInner {
+  padding: 0 8px 40px;
+  opacity: 1;
+  transition: opacity 160ms ease;
+}
+
+.previewFading {
+  opacity: 0;
+}
+
+.previewHeader {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.previewTitle {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.previewMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.previewSummary {
+  margin-top: 10px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.previewBody {
+  font-size: 15px;
+  line-height: 1.8;
+
+  h1,
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 22px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 12px;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 12px;
+    padding-left: 22px;
+
+    li {
+      margin-bottom: 6px;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding: 8px 16px;
+    margin: 16px 0;
+    background: var(--color-bg-secondary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--color-text-secondary);
+  }
+
+  img {
+    border-radius: var(--radius);
+    margin: 16px 0;
+    max-width: 100%;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 24px 0;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.previewEmpty {
+  color: var(--color-text-secondary);
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+// ============================================================
+// Type 颜色
+// ============================================================
+
+.dot-movie    { background-color: #4a7bd6; }
+.dot-tv       { background-color: #6c5ce7; }
+.dot-book     { background-color: #a67c52; }
+.dot-podcast  { background-color: #b34fb3; }
+.dot-place    { background-color: #4a9d7f; }
+.dot-writing  { background-color: #7a7a7a; }
+.dot-other    { background-color: #999; }
+
+.tag-movie   { color: #4a7bd6; background: rgba(74, 123, 214, 0.12); }
+.tag-tv      { color: #6c5ce7; background: rgba(108, 92, 231, 0.12); }
+.tag-book    { color: #a67c52; background: rgba(166, 124, 82, 0.14); }
+.tag-podcast { color: #b34fb3; background: rgba(179, 79, 179, 0.12); }
+.tag-place   { color: #4a9d7f; background: rgba(74, 157, 127, 0.14); }
+.tag-writing { color: #7a7a7a; background: rgba(122, 122, 122, 0.14); }
+.tag-other   { color: #999;    background: rgba(153, 153, 153, 0.14); }
+
+@keyframes fadeInItem {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInPreview {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ============================================================
+// 响应式
+// ============================================================
+
+@media (max-width: 960px) {
+  .explorer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .preview {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .previewInner {
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .item {
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+  }
+
+  .time {
+    display: none;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}

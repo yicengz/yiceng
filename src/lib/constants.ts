@@ -60,6 +60,7 @@ export interface RoutineMeta {
   type: RoutineType;
   summary: string;
   link: string;
+  hasContent: boolean;
 }
 
 export interface Routine extends RoutineMeta {
